@@ -1,0 +1,15 @@
+.containerEdit {
+  margin-top: 200px;
+  padding: 20px;
+}
+
+.form{
+  margin: auto;
+  width: 50%;
+}
+
+@media(max-width: 768px){
+  .form{
+    width: 100%;
+  }
+}
