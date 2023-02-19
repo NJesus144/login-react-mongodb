@@ -10,35 +10,39 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleForm = (event) => {
+    event.preventDefault();
+  };
+
   return (
-      <ContainerForm>
+    <ContainerForm onSubmit={handleForm}>
       <H1>Cadastro</H1>
-        <Input
-          type="text"
-          placeholder="Nome"
-          value={name}
-          onChange={({ target }) => setName(target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Usuário"
-          value={user}
-          onChange={({ target }) => setUser(target.value)}
-        />
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={({ target }) => setEmail(target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
-        />
-        <Btn>Cadastrar</Btn>
-      </ContainerForm> 
+      <Input
+        type="text"
+        placeholder="Nome"
+        value={name}
+        onChange={({ target }) => setName(target.value)}
+      />
+      <Input
+        type="text"
+        placeholder="Usuário"
+        value={user}
+        onChange={({ target }) => setUser(target.value)}
+      />
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={({ target }) => setEmail(target.value)}
+      />
+      <Input
+        type="password"
+        placeholder="Senha"
+        value={password}
+        onChange={({ target }) => setPassword(target.value)}
+      />
+      <Btn type="submit">Cadastrar</Btn>
+    </ContainerForm>
   );
 }
 
