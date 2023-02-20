@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import axios from "axios";
+import { useRouter } from "next/router";
+
 import Link from "next/link";
+import { loginSchema } from "../modules/user/user.schema";
 
 import { Input } from "../src/components/form/Input";
 import H1 from "../src/components/Typography/H1";
@@ -7,27 +12,43 @@ import { ContainerForm } from "../src/components/layout/ContainerForm";
 import { Btn } from "../src/components/button/Btn";
 
 function Login() {
-  const [user, setUser] = useState();
-  const [password, setPassword] = useState();
+  const router = useRouter()
+  const { register, handleSubmit, formState: { errors }, setError } = useForm({
+    resolver: joiResolver(loginSchema),
+  });
 
-  const handleForm = (event) => {
-    event.preventDefault();
+  const handleForm = async (data) => {
+    try{
+      const { status } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/login`, data)
+      if (status === 200) {
+        router.push('/')
+      }
+    }catch({response}){
+     if(response.data === 'password incorrect') {
+      setError('password', {
+        message: 'A senha está incorreta.'
+      })
+     }
+     else if (response.data === 'not found'){
+      setError('userOrEmail',{
+        message: 'Usuário ou e-mail não encontrado.'
+      })
+     }
+    }
   };
 
   return (
-    <ContainerForm onSubmit={handleForm}>
+    <ContainerForm onSubmit={handleSubmit(handleForm)}>
       <H1>Login</H1>
       <Input
-        type="text"
-        value={user}
+        type="text"   
         placeholder="Usuário"
-        onChange={({ target }) => setUser(target.value)}
+        {...register("userOrEmail")} error={errors.userOrEmail}
       />
       <Input
         type="text"
-        value={password}
         placeholder="Senha"
-        onChange={({ target }) => setPassword(target.value)}
+        {...register("password")} error={errors.password}
       />
       <Btn type="submit">Entrar</Btn>
       <p className="text-center mt-2">Ainda não possui uma conta?<Link href="/signup"> Cadastre-se</Link></p>
