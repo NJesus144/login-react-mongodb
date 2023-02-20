@@ -1,7 +1,8 @@
 import { useState } from "react";
+import Link from "next/link";
 
 import { Input } from "../src/components/form/Input";
-import H1 from "../src/components/Typography/H2";
+import H1 from "../src/components/Typography/H1";
 import { ContainerForm } from "../src/components/layout/ContainerForm";
 import { Btn } from "../src/components/button/Btn";
 
@@ -29,6 +30,7 @@ function Login() {
         onChange={({ target }) => setPassword(target.value)}
       />
       <Btn type="submit">Entrar</Btn>
+      <p className="text-center mt-2">Ainda não possui uma conta?<Link href="/signup"> Cadastre-se</Link></p>
     </ContainerForm>
   );
 }

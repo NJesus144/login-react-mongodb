@@ -5,11 +5,11 @@ import { Alert } from "react-bootstrap";
 
 const errorMessage = {
   'string.empty': "O campo é obrigadtório.",
-  'string.email': "Por favor, digite um email válido."
+  'string.email': "Por favor, digite um email válido.",
+  'duplicated': "Já existe uma conta registrada com esse valor."
 }
 
 export const Input = forwardRef(({ label, error, ...props }, ref) => {
-  console.log(error)
   return (
     <Form.Group className="mb-3 " controlId="formGroupEmail">
       <Form.Label>{label}</Form.Label>
